@@ -39,10 +39,11 @@ def predict():
         print("Prediction error:", e)
         return render_template('index.html', messages=[f"Prediction error: {e}"])
 
-    output = ["cancrous" if int(pred[0]) == 1 else "non-cancrous"]
-    # pass as "messages" because your template uses that name
+    output = ["cancerous" if int(pred[0]) == 1 else "non-cancerous"]
     return render_template('index.html', messages=output)
 
 
-if __name__ == "__main__":
-    app.run(debug=True)
+# Health check endpoint (useful for Render)
+@app.route('/healthz')
+def health():
+    return "ok", 200
